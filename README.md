@@ -22,6 +22,6 @@ You can copy the "Assets" folder from the main directory to \9PP9GZM2GN26\AppUp.
 
 # Troubleshooting
 
-If it doesn't want to install try manually running 'Add -AppxPackage -Register AppxManifest.xml' in the WebPhonePackagingDirectory
+If it doesn't want to install try manually running 'Add -AppxPackage -Register AppxManifest.xml' in the WebPhonePackaging directory
 
 **If it still doesn't work try installing it via a 3rd party app like [Msix Hero](https://www.microsoft.com/store/productId/9N3LL1W6QCNT)**
