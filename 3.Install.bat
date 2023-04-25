@@ -1,29 +1,16 @@
 @echo off
 
-REM  --> Check for permissions
-    IF "%PROCESSOR_ARCHITECTURE%" EQU "amd64" (
->nul 2>&1 "%SYSTEMROOT%\SysWOW64\cacls.exe" "%SYSTEMROOT%\SysWOW64\config\system"
-) ELSE (
->nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
+if "%~1"=="" (
+  echo Please drag and drop the AppxManifest.xml file onto this batch file to install it.
+  pause
+  exit
 )
 
-REM --> If error flag set, we do not have admin.
-if '%errorlevel%' NEQ '0' (
-    echo Requesting administrative privileges...
-    goto UACPrompt
-) else ( goto gotAdmin )
+set "appx=%~1"
 
-:UACPrompt
-    echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
-    set params= %*
-    echo UAC.ShellExecute "cmd.exe", "/c ""%~s0"" %params:"=""%", "", "runas", 1 >> "%temp%\getadmin.vbs"
+echo Installing %appx% ...
 
-    "%temp%\getadmin.vbs"
-    del "%temp%\getadmin.vbs"
-    exit /B
+powershell -Command "Add-AppxPackage -Path ""%appx%"""
 
-:gotAdmin
-    pushd "%CD%"
-    CD /D "%~dp0"
-
-Add -AppxPackage -Register "%1"
+echo Installation complete!
+pause
