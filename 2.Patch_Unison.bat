@@ -18,6 +18,10 @@ if exist AppxMetadata (
     rmdir /q /s AppxMetadata
 )
 
-powershell -Command "(gc ppxManifest.xml) -replace '10.0.22621.0','10.0.15063.0' | Out-File “AppxManifest.xml”
+powershell -Command "(gc AppxManifest.xml) -replace '10.0.22621.0','10.0.15063.0' | Out-File “AppxManifest.xml”
+
+rem log the script execution
+set logFile=C:\Logs\Patch_Log.TXT
+echo %date% %time% - Modifed AppxManifest.xml in %directory%. >> %logFile%
 
 popd
